@@ -6,6 +6,7 @@
 #include <array>
 #include <thread>
 #include <vector>
+#include <cstring>
 
 namespace visp {
 
@@ -457,7 +458,7 @@ void model_transfer(
 
     tensor orig = ggml_get_first_tensor(src_ctx);
     for (int64_t i = 0, conv2d_idx = 0; orig;) {
-        if (strncmp(orig->name, "GGUF", 4) == 0) {
+        if (std::strncmp(orig->name, "GGUF", 4) == 0) {
             orig = ggml_get_next_tensor(src_ctx, orig); // skip "GGUF tensor data binary blob"
             continue; // (why is there no way to iterate over GGUF tensors directly?)
         }
@@ -482,7 +483,7 @@ void model_transfer(
     tensor src = ggml_get_first_tensor(src_ctx);
     tensor dst = ggml_get_first_tensor(dst_ctx);
     for (int i = 0, conv2d_idx = 0; src && dst;) {
-        if (strncmp(src->name, "GGUF", 4) == 0) {
+        if (std::strncmp(src->name, "GGUF", 4) == 0) {
             src = ggml_get_next_tensor(src_ctx, src);
             continue; // skip "GGUF tensor data binary blob"
         }
