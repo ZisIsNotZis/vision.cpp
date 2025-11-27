@@ -1,3 +1,5 @@
+#include <cmath>
+#include <cstring>
 #include "visp/arch/swin.h"
 #include "util/string.h"
 #include "visp/nn.h"
